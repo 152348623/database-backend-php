@@ -21,7 +21,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 -->
 <html>
 	<head>
-		<title>Contact - Alpha by HTML5 UP</title>
+		<title>北科訂書系統-上下架書籍</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -53,10 +53,10 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 			</header>
 
 			<!-- Main -->
-				<section id="main" class="container">
+				<section id="main" class="container" style="width:80em;">
 					<header>
-						<h2>Shelves</h2>
-						<p>Shelves</p>
+						<h2>你的書櫃</h2>
+						<p>趕快將你的書上架</p>
 					</header>
 					
 					<div class="box">
@@ -80,6 +80,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 								<th>書本價格</th>
 								<th>書本描述</th>
 								<th></th>
+								<th></th>
 							</tr>
                             <?php do { ?>
 							<tr>
@@ -97,6 +98,9 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 								<td><?php echo $row_Recordset1["Description"]; ?></td>
                                 <form id="form1" name="form1" method="post" action="" >
 								<td><input type="submit" name="button" id="button" value="下架">
+                                <input type="hidden" name="delid" id="delid" value="<?php echo $row_Recordset1["Book_id"] ?>">
+								</td>
+								<input type="submit" name="button" id="button" value="編輯">
                                 <input type="hidden" name="delid" id="delid" value="<?php echo $row_Recordset1["Book_id"] ?>">
                                 </td>
                                 </form>
