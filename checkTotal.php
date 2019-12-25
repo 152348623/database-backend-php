@@ -39,8 +39,9 @@ if(!isset($_SESSION["user_id"])){
 		<title>Contact - Alpha by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/register.css" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<!-- <link rel="stylesheet" href="assets/css/register.css" /> -->
+		<link rel="stylesheet" href="assets/css/check-total.css" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 		
 	</head>
@@ -73,118 +74,75 @@ if(!isset($_SESSION["user_id"])){
 			<!-- Main -->
 				<section id="main" class="container medium">
 					<header>
-						<h2>加入書籍</h2>
-						<p>將您所需上傳的書籍填入資料</p>
+						<h2>確認結帳</h2>
+						<p>請填入相關資訊，以便取貨</p>
 					</header>
 				</section>
 				<section class = "container">
 				  <form name="form" method="POST" action="<?php echo $editFormAction; ?>" style="margin:0 ;">
 						<div class="box row">
-							<div class="col-5" style=" padding: 0px; align-self:center">
-								<img id="output" style="width: 330px;"/>
-							</div>
-							<div class="col-7">
+							
+							<div class="col-12">
 								
 									<div class="row gtr-50 gtr-uniform">
-										<div class="col-2">	</div>
+										<div class="col-1"></div>
 										<div class="col-2" style="align-self:center">
-											<p>ISBN</p> 
+											<p>收件人姓名：</p> 
 										</div>
-										<div class="col-8">
-											<input type="text" name="ISBN" id="ISBN" value="" />
+										<div class="col-7">
+											<input type="text" name="name" id="name" value="" />
 										</div>
+										<div class="col-2"></div>
 
 										<br>
 
-										<div class="col-2">		</div>
+										<div class="col-1"></div>
 										<div class="col-2" style="align-self:center">
-											<p>書本名稱</p> 
+											<p>手機：</p> 
 										</div>
-										<div class="col-8">
-											<input type="text" name="Name" id="Name" value="" />
+										<div class="col-7">
+											<input type="text" name="cellphone" id="cellphone" value="" />
 										</div>
+										<div class="col-2"></div>
 
 										<br>
 
-										<div class="col-2"> </div>
+										<div class="col-1"></div>
 										<div class="col-2" style="align-self:center">
-											<p>作者名稱</p> 
+											<p>宅配地址：</p> 
 										</div>
-										<div class="col-8">
-											<input type="text" name="Author_name" id="Author_name" value="" />
+										<div class="col-7">
+											<input type="text" name="adress_name" id="adress_name" value="" />
 										</div>
+										<div class="col-2"></div>
 
 										<br>
-
-										<div class="col-2"> </div>
-										<div class="col-2" style="align-self:center" >
-											<p>出版社</p> 
+										<div class="col-12" style="padding-left: 0px;">
+											<p class="pay-content" >
+												※ 注意事項：貨到付款
+											</p>
 										</div>
-										<div class="col-8">
-											<input type="text" name="Publisher" id="Publisher" value="" />
-										</div>
-
-										<br>
-
-										<div class="col-2"> </div>
-										<div class="col-2" style="align-self:center">
-											<p>類別</p> 
-										</div>
-										<div class="col-8">
-											<label for="Category"></label>
-											<select name="Category" id="Category">
-                                                <option value ="0">童話故事</option>
-                                                <option value ="1">恐怖小說</option>
-										  </select>
-										</div>
-
-										<br>
-
-										<div class="col-2"> </div>
-										<div class="col-2" style="align-self:center">
-											<p>書本價格</p>
-										</div>
-										<div class="col-8">
-											<input type="text" name="Cost" id="Cost" value="" />
-										</div>
-
-										<br>
-
-										<div class="col-2"> </div>
-										<div class="col-2" style="align-self:center">
-											<p>書本描述</p>
-										</div>
-										<div class="col-8">
-											<input type="text" name="Description" id="Description" value="" />
-										</div>
+										
 
 									</div>
 								
 							</div>
 							<br>
-							<div class="col-5" style="margin-top:10px; padding-left: 0px;">
-								<input type="button" value="上傳圖片" style="margin-top: -10px;"/>
-									<input type="file" accept="image/*" onchange="loadFile(event)" value="上傳圖片" accept="image/png,image/jpg,image/jpeg" id="customFileInput" style="opacity:0; position:absolute; margin: 0px 0px 0px -90px;" />
-									<script>
-										var loadFile = function(event) {
-											var reader = new FileReader();
-											reader.onload = function(){
-											var output = document.getElementById('output');
-											output.src = reader.result;
-											};
-											reader.readAsDataURL(event.target.files[0]);
-										};
-										</script>
-							</div>
-							<div class="col-7">
+						
+							<div class="col-12 div-total">
+							<div class="col-1"> </div>
 
-							</div>
-							<div class="col-12">
-
-								<div class="col-6"> </div>
-								<div class="col-6">
+								<div class="col-4 pay"> 
+									<p class="pay-total-text">
+										總金額：
+									</p>
+									<p class="pay-total-number">
+									123456
+									</p>
+								</div>
+								<div class="col-7 go">
 									<ul class="actions special">
-										<li><input type="submit" value="上傳書籍" /></li>
+										<li><input type="submit" value="送出" /></li>
 									</ul>
 								</div>
 							</div>
@@ -213,6 +171,7 @@ if(!isset($_SESSION["user_id"])){
 	
 					</section>
 				</footer>
+
 
 		</div>
 

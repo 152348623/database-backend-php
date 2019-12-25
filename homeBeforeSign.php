@@ -12,22 +12,11 @@
 			<!-- Header -->
 				<header id="header" class="alt">
 					<img src="images/Logo.jpg" alt="NTUT Online Book Store Logo">
-					<nav id="nav">
-						<ul class="header-ul" style="margin-top: 10px">
-							<li><a href="home.php">HOME</a></li>
-							<li>
-								<a href="#" class="icon solid fa-angle-down">PERSONAL INFO</a>
-								<ul>
-									<li><a href="shelves.php">上下架</a></li>
-										<ul>
-											<li><a href="write-book.php">編輯書籍資訊</a></li>
-											<li><a href="#">上下架書籍</a></li>
-										</ul>
-									<li><a href="cart.php">購物車</a></li>
-									<li><a href="#">個人資料</a></li>
-								</ul>
-							</li>
-							<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->
+					<nav id="nav" >
+						<ul class="header-ul" style="margin-top: 10px" >
+							<li><a href="homeBeforeSign.php">HOME</a></li>
+							<li><a href="register.php">REGISTER</a></li>
+							<li><a href="login.php" class="button">LOGIN</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -74,7 +63,7 @@
 										</ul>
 										<ul class="actions special">
 											<li><a href="book-information.php" class="button alt">瞭解詳情</a></li>
-											<li><a href="#" class="button alt">加入購物車</a></li> <!-- 跳message 按下後跳轉頁面 -->
+											<li><a href="#" class="button alt">加入購物車</a></li>
 										</ul>
 									</section>
 								</div>
