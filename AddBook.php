@@ -64,7 +64,11 @@ if(!isset($_SESSION["arrayCaategory"])){
 										<li><a href="#shelves">上下架書籍</a></li>
 									</ul>
 								<li><a href="cart.php">購物車</a></li>
+<<<<<<< HEAD
 								<li><a href="userinfo.php">個人資料</a></li>
+=======
+								<li><a href="#">編輯個人資料</a></li>
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 							</ul>
 						</li>
 						<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->
@@ -135,6 +139,7 @@ if(!isset($_SESSION["arrayCaategory"])){
 										<div class="col-8">
 											<label for="Category"></label>
 											<select name="Category" id="Category">
+<<<<<<< HEAD
                                                 <?php
 												for($i = 0 ; $i< count($_SESSION["arrayCaategory"]);$i++){
 
@@ -143,6 +148,17 @@ if(!isset($_SESSION["arrayCaategory"])){
 													
 												}
 												?>
+=======
+                                                <option value ="0">哲學類</option>
+												<option value ="1">宗教類</option>
+												<option value ="2">科學類</option>
+												<option value ="3">應用科學類</option>
+												<option value ="4">社會科學類</option>
+												<option value ="5">史地類</option>
+												<option value ="6">世界史地類</option>
+												<option value ="7">語言文學類</option>
+                                                <option value ="8">藝術類</option>
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 										  </select>
 										</div>
 

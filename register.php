@@ -94,7 +94,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 									<p>密碼</p> 
 								</div>
 								<div class="col-4">
+<<<<<<< HEAD
 									<input type="password" name="Password" id="Password" value="" required = "required" />
+=======
+									<input type="password" name="Password" id="Password" value="" required="required" />
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 								</div>
 								<div class="col-3">
 
@@ -107,7 +111,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 									<p>名字</p> 
 								</div>
 								<div class="col-4">
+<<<<<<< HEAD
 									<input type="text" name="Name" id="Name" value="" required = "required" />
+=======
+									<input type="text" name="Name" id="Name" value="" required="required" />
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 								</div>
 								<div class="col-3">
 
@@ -120,7 +128,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 									<p>電子郵件</p> 
 								</div>
 								<div class="col-4">
+<<<<<<< HEAD
 									<input type="text" name="E-mail" id="E-mail" value="" required = "required" />
+=======
+									<input type="text" name="E-mail" id="E-mail" value="" required="required" />
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 								</div>
 								<div class="col-3">
 
@@ -133,7 +145,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 									<p>電話號碼</p> 
 								</div>
 								<div class="col-4">
+<<<<<<< HEAD
 									<input type="text" name="Phone" id="Phone" value="" required = "required" />
+=======
+									<input type="text" name="Phone" id="Phone" value="" required="required" />
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 								</div>
 								<div class="col-3">
 

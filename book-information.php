@@ -127,11 +127,15 @@ if(!isset($_SESSION["arrayCaategory"])){
 
 										<div class="col-1"> </div>
 										<div class="col-3" style="align-self:center">
-											<p class="content-title">類別：</p> 
+											<p class="content-title">類別：</p> <!--記得改這裡!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 										</div>
 										<div class="col-8">
 											<p>
+<<<<<<< HEAD
 												<?php echo $_SESSION["arrayCaategory"][$row_select["Category"]]; ?>
+=======
+												<?php echo $row_select["類別"] ?>
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 											</p>
 										</div>
 
@@ -143,7 +147,11 @@ if(!isset($_SESSION["arrayCaategory"])){
 										</div>
 										<div class="col-8">
 											<p>
+<<<<<<< HEAD
 												<?php echo $row_select["Cost"] ?>
+=======
+												<?php echo $row_select["cost"] ?>
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 											</p>
 										</div>
 

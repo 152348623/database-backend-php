@@ -18,6 +18,8 @@ if(!isset($_SESSION["arrayCaategory"])){
 }
 
 ?>
+
+
 <!DOCTYPE HTML>
 <!--
 	Alpha by HTML5 UP

@@ -23,6 +23,13 @@ if(!isset($_SESSION["arrayCaategory"])){
 		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 		<script src="jquery-3.2.1.min.js"></script>	
 	</head>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+    function insert_cart(id){
+		$.post("insert_cart.php", { Book_id:id } );
+		document.location("cart.php");
+	}
+	</script>
 	<body class="landing is-preload">
 		<div id="page-wrapper">
 
@@ -44,7 +51,7 @@ if(!isset($_SESSION["arrayCaategory"])){
 									<li><a href="userinfo.php">個人資料</a></li>
 								</ul>
 							</li>
-							<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->
+							<li><a href="logout.php" >LOGOUT </a></li> <!-- 跳message 按下後跳轉頁面 -->
 						</ul>
 					</nav>
 				</header>
@@ -61,6 +68,7 @@ if(!isset($_SESSION["arrayCaategory"])){
 				</section>
 
 			<!-- Main -->
+			<form action="" method="POST"></form>
 					<div class="row" style="padding: 20px 20px;">
 						<div class="col-2">
 							<p style="margin: 0; color: #4b4b49; font-size: 30px; font-weight: bold; padding-left: 16px; padding-bottom: 10px;">TYPE</p>
@@ -131,6 +139,7 @@ if(!isset($_SESSION["arrayCaategory"])){
 											</li>
 											<li class="book-infor-li">
 												<p style="margin: 0; text-align:left;">TYPE： </p>
+<<<<<<< HEAD
 													<?php
 													echo $_SESSION["arrayCaategory"][$row_Recordset1["Category"]];
 													?>
@@ -145,6 +154,25 @@ if(!isset($_SESSION["arrayCaategory"])){
                                             <input type="hidden" name="Book_id" id="Book_id" value="<?php echo $row_Recordset1["Book_id"] ?>">
 										<li><input type="submit" value="加入購物車" /></li>
                                         </form>
+=======
+												<td>
+													<?php foreach ($arrayCaategory as $category)
+													{
+														// echo $row_Recordset1["Category"];
+														if(array_search($category, $arrayCaategory) == $row_Recordset1["Category"]){
+															echo $category;
+														}
+													}
+													?>
+												</td>
+											</li>
+										</ul>
+										<ul class="actions special">
+											<li><a href="book-information.php" class="button alt">瞭解詳情</a></li>
+											<?php $id = $row_Recordset1["Book_id"]?>
+											<td><?php echo $id ?></td>
+										<li><input type="button" onclick="insert_cart(<?php $id ?>) " name ="Book_id" value="加入購物車" /></li>
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 
 										</ul>
 									</section>
@@ -189,6 +217,10 @@ if(!isset($_SESSION["arrayCaategory"])){
 						
 						
 					</div>
+<<<<<<< HEAD
+=======
+					</form>
+>>>>>>> ba46d20eeb9672f532029e3ff92f5e858f68ad47
 				</section>
 
 
