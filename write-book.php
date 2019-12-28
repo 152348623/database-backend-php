@@ -5,8 +5,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form")) {
-  $insertSQL = sprintf("INSERT INTO book (ISBN, Name, Author_name, Publisher, Category, Cost, `Description`, Seller_id) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
+  $updateSQL = sprintf("UPDATE book SET ISBN='%s', Name='%s', Author_name='%s', Publisher='%s', Category='%s', Cost='%s', `Description`='%s' WHERE Book_id='%s'",
                        $_POST['ISBN'],
                        $_POST['Name'],
                        $_POST['Author_name'],
@@ -14,18 +14,18 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form")) {
                        $_POST['Category'],
                        $_POST['Cost'],
                        $_POST['Description'],
-                       $_SESSION["user_id"]);
-					   
+                       $_POST['Book_id']);
+
   mysql_select_db($database_book_model, $book_model);
-  $Result1 = mysql_query($insertSQL, $book_model) or die(mysql_error());
+  $Result1 = mysql_query($updateSQL, $book_model) or die(mysql_error());
 }
-if(!isset($_SESSION["user_id"])){
-	mysql_select_db($database_book_model, $book_model);
-	$query_Recordset1 = sprintf("SELECT * FROM `user` WHERE Account = '%s'",$_SESSION["MM_Username"]);
-	$Recordset1 = mysql_query($query_Recordset1, $book_model) or die(mysql_error());
-	$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-	$totalRows_Recordset1 = mysql_num_rows($Recordset1);
-	$_SESSION["user_id"] = $row_Recordset1["Id"];
+
+mysql_select_db($database_book_model, $book_model);
+$select = sprintf("SELECT * FROM book WHERE Book_id = '%s'",$_POST["Book_id"]);
+$sql_select = mysql_query($select);
+$row_select = mysql_fetch_assoc($sql_select);
+if(!isset($_SESSION["arrayCaategory"])){
+	$_SESSION["arrayCaategory"] = array("哲學類","宗教類","科學類","應用科學類","社會科學類","史地類","世界史地類","語言文學類","藝術類");
 }
 ?>
 <!DOCTYPE HTML>
@@ -61,7 +61,7 @@ if(!isset($_SESSION["user_id"])){
 										<li><a href="#">上下架書籍</a></li>
 									</ul>
 								<li><a href="cart.php">購物車</a></li>
-								<li><a href="#">個人資料</a></li>
+								<li><a href="userinfo.php">個人資料</a></li>
 							</ul>
 						</li>
 						<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->
@@ -90,7 +90,7 @@ if(!isset($_SESSION["user_id"])){
 											<p>ISBN</p> 
 										</div>
 										<div class="col-8">
-											<input type="text" name="ISBN" id="ISBN" value="" />
+											<input type="text" name="ISBN" id="ISBN" value="<?php echo $row_select["ISBN"] ?>" />
 										</div>
 
 										<br>
@@ -100,7 +100,7 @@ if(!isset($_SESSION["user_id"])){
 											<p>書本名稱</p> 
 										</div>
 										<div class="col-8">
-											<input type="text" name="Name" id="Name" value="" />
+											<input type="text" name="Name" id="Name" value="<?php echo $row_select["Name"] ?>" />
 										</div>
 
 										<br>
@@ -110,7 +110,7 @@ if(!isset($_SESSION["user_id"])){
 											<p>作者名稱</p> 
 										</div>
 										<div class="col-8">
-											<input type="text" name="Author_name" id="Author_name" value="" />
+											<input type="text" name="Author_name" id="Author_name" value="<?php echo $row_select["Author_name"] ?>" />
 										</div>
 
 										<br>
@@ -120,7 +120,7 @@ if(!isset($_SESSION["user_id"])){
 											<p>出版社</p> 
 										</div>
 										<div class="col-8">
-											<input type="text" name="Publisher" id="Publisher" value="" />
+											<input type="text" name="Publisher" id="Publisher" value="<?php echo $row_select["Publisher"] ?>" />
 										</div>
 
 										<br>
@@ -132,8 +132,17 @@ if(!isset($_SESSION["user_id"])){
 										<div class="col-8">
 											<label for="Category"></label>
 											<select name="Category" id="Category">
-                                                <option value ="0">童話故事</option>
-                                                <option value ="1">恐怖小說</option>
+                                                <?php
+												for($i = 0 ; $i< count($_SESSION["arrayCaategory"]);$i++){
+													if($i == $row_select["Category"]){
+														echo "<option value='" . $i . "' selected>" .$_SESSION["arrayCaategory"][$i] ."</option>";
+													}
+													else
+													{
+														echo "<option value='" . $i . "'>" .$_SESSION["arrayCaategory"][$i] ."</option>";
+													}
+												}
+												?>
 										  </select>
 										</div>
 
@@ -144,7 +153,7 @@ if(!isset($_SESSION["user_id"])){
 											<p>書本價格</p>
 										</div>
 										<div class="col-8">
-											<input type="text" name="Cost" id="Cost" value="" />
+											<input type="text" name="Cost" id="Cost" value="<?php echo $row_select["Cost"] ?>" />
 										</div>
 
 										<br>
@@ -154,7 +163,7 @@ if(!isset($_SESSION["user_id"])){
 											<p>書本描述</p>
 										</div>
 										<div class="col-8">
-											<input type="text" name="Description" id="Description" value="" />
+											<input type="text" name="Description" id="Description" value="<?php echo $row_select["Description"] ?>" />
 										</div>
 
 									</div>
@@ -188,7 +197,8 @@ if(!isset($_SESSION["user_id"])){
 								</div>
 							</div>
 						</div>
-						<input type="hidden" name="MM_insert" value="form">
+						<input type="hidden" name="Book_id" value="<?php echo $row_select["Book_id"] ?>">
+						<input type="hidden" name="MM_update" value="form">
 					</form>
 				</section>
 					

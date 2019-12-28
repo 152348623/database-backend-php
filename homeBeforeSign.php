@@ -1,3 +1,17 @@
+<?php require_once('Connections/book_model.php'); ?>
+<?php
+
+mysql_select_db($database_book_model, $book_model);
+$query_Recordset1 = sprintf("SELECT * FROM book");
+$Recordset1 = mysql_query($query_Recordset1, $book_model) or die(mysql_error());
+$row_Recordset1 = mysql_fetch_assoc($Recordset1);
+$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+?>
+<?php
+if(!isset($_SESSION["arrayCaategory"])){
+	$_SESSION["arrayCaategory"] = array("哲學類","宗教類","科學類","應用科學類","社會科學類","史地類","世界史地類","語言文學類","藝術類");
+}
+?>
 <html>
 	<head>
 		<title>北科訂書系統-訪客</title>
@@ -51,54 +65,37 @@
 						</div>
 						<div class="col-10">
 							<div class="row">
+								<?php do { ?>
 								<div class="col-4 col-12-narrower">
+										<tr>
 									<section class="box special">
 										<span class="image featured"><img src="images/book1.jpg" alt="" /></span>
-										<h3 class="book title">Lineaar Algebra</h3>
+										<h3 class="book title"><?php echo $row_Recordset1["Name"]; ?></h3>
 										<ul style="list-style-type: none;">
-											<li><p style="margin: 0; text-align:left;">作者: </p></li>
-											<li><p style="margin: 0; text-align:left;">賣家: </p></li>
-											<li><p style="margin: 0; text-align:left;">售價: </p></li>
-											<li><p style="margin: 0; text-align:left;">TYPE: </p></li>
-										</ul>
-										<ul class="actions special">
-											<li><a href="book-information.php" class="button alt">瞭解詳情</a></li>
-											<li><a href="#" class="button alt">加入購物車</a></li>
+											<li class="book-infor-li">
+												<p style="margin: 0; text-align:left;">作者：<?php echo $row_Recordset1["Author_name"]; ?>  </p>
+
+											</li>
+											<li class="book-infor-li"> 
+												<p style="margin: 0; text-align:left;">賣家：<?php echo $row_Recordset1["Seller_id"]; ?> </p>
+											
+											</li>
+											<li class="book-infor-li">
+												<p style="margin: 0; text-align:left;">售價：<?php echo $row_Recordset1["Cost"]; ?> </p>
+												
+											
+											</li>
+											<li class="book-infor-li" style="display: flex;">
+												<p style="margin: 0; text-align:left;">TYPE： </p>
+													<?php
+													echo $_SESSION["arrayCaategory"][$row_Recordset1["Category"]];
+													?>
+											</li>
 										</ul>
 									</section>
+									</tr>
 								</div>
-								<div class="col-4 col-12-narrower">
-									<section class="box special">
-										<span class="image featured"><img src="images/book2.jpg" alt="" /></span>
-										<h3 class="book title">Essential Calculus</h3 class="book title">
-										<ul style="list-style-type: none;">
-											<li><p style="margin: 0; text-align:left;">作者: </p></li>
-											<li><p style="margin: 0; text-align:left;">賣家: </p></li>
-											<li><p style="margin: 0; text-align:left;">售價: </p></li>
-											<li><p style="margin: 0; text-align:left;">TYPE: </p></li>
-										</ul>
-										<ul class="actions special">
-											<li><a href="book-information.php" class="button alt">瞭解詳情</a></li>
-											<li><a href="#" class="button alt">加入購物車</a></li>
-										</ul>
-									</section>
-								</div>
-								<div class="col-4 col-12-narrower">
-									<section class="box special">
-										<span class="image featured"><img src="images/book3.jpg" alt="" /></span>
-										<h3 class="book title">Economics</h3 class="book title">
-										<ul style="list-style-type: none;">
-											<li><p style="margin: 0; text-align:left;">作者: </p></li>
-											<li><p style="margin: 0; text-align:left;">賣家: </p></li>
-											<li><p style="margin: 0; text-align:left;">售價: </p></li>
-											<li><p style="margin: 0; text-align:left;">TYPE: </p></li>
-										</ul>
-										<ul class="actions special">
-											<li><a href="book-information.php" class="button alt">瞭解詳情</a></li>
-											<li><a href="#" class="button alt">加入購物車</a></li>
-										</ul>
-									</section>
-								</div>
+								<?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>
 							</div>
 						</div>
 						

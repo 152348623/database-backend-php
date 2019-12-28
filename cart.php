@@ -53,7 +53,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 										<li><a href="#">上下架書籍</a></li>
 									</ul>
 								<li><a href="cart.php">購物車</a></li>
-								<li><a href="#">個人資料</a></li>
+								<li><a href="userinfo.php">個人資料</a></li>
 							</ul>
 						</li>
 						<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->

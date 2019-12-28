@@ -8,10 +8,15 @@ if ((isset($_POST['delid'])) && ($_POST['delid'] != "")) {
 }
 
 mysql_select_db($database_book_model, $book_model);
-$query_Recordset1 = "SELECT * FROM book";
+$query_Recordset1 = sprintf("SELECT * FROM book WHERE seller_id = '%s'",$_SESSION["user_id"]);
 $Recordset1 = mysql_query($query_Recordset1, $book_model) or die(mysql_error());
 $row_Recordset1 = mysql_fetch_assoc($Recordset1);
 $totalRows_Recordset1 = mysql_num_rows($Recordset1);
+
+if(!isset($_SESSION["arrayCaategory"])){
+	$_SESSION["arrayCaategory"] = array("哲學類","宗教類","科學類","應用科學類","社會科學類","史地類","世界史地類","語言文學類","藝術類");
+}
+
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -44,7 +49,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 										<li><a href="#">上下架書籍</a></li>
 									</ul>
 								<li><a href="cart.php">購物車</a></li>
-								<li><a href="#">個人資料</a></li>
+								<li><a href="userinfo.php">個人資料</a></li>
 							</ul>
 						</li>
 						<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->
@@ -53,7 +58,7 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 			</header>
 
 			<!-- Main -->
-				<section id="main" class="container" style="width:80em;">
+				<section id="main" class="container" style="width:80em">
 					<header>
 						<h2>你的書櫃</h2>
 						<p>趕快將你的書上架</p>
@@ -82,30 +87,37 @@ $totalRows_Recordset1 = mysql_num_rows($Recordset1);
 								<th></th>
 								<th></th>
 							</tr>
-                            <?php do { ?>
+                            
+                            <?php
+							if($totalRows_Recordset1){
+							 do { ?>
 							<tr>
 								<td><?php echo $row_Recordset1["ISBN"]; ?></td>
 								<td><?php echo $row_Recordset1["Name"]; ?></td>
 								<td><?php echo $row_Recordset1["Author_name"]; ?></td>
 								<td><?php echo $row_Recordset1["Publisher"]; ?></td>
-								<td><?php if($row_Recordset1["Category"] == 0){
-												echo "童話故事";
-										  }
-										  else if($row_Recordset1["Category"] == 1){
-											  	echo "恐怖小說";
-										  }?></td>
+								<td><?php echo $_SESSION["arrayCaategory"][$row_Recordset1["Category"]];
+										  ?></td>
 								<td><?php echo $row_Recordset1["Cost"]; ?></td>
 								<td><?php echo $row_Recordset1["Description"]; ?></td>
                                 <form id="form1" name="form1" method="post" action="" >
 								<td><input type="submit" name="button" id="button" value="下架">
                                 <input type="hidden" name="delid" id="delid" value="<?php echo $row_Recordset1["Book_id"] ?>">
-								</td>
-								<input type="submit" name="button" id="button" value="編輯">
-                                <input type="hidden" name="delid" id="delid" value="<?php echo $row_Recordset1["Book_id"] ?>">
+								</td></form>
+                                <form id="form2" name="form2" method="post" action="write-book.php" >
+								<td><input type="submit" name="button" id="button" value="編輯">
+                                <input type="hidden" name="Book_id" id="Book_id" value="<?php echo $row_Recordset1["Book_id"] ?>">
                                 </td>
                                 </form>
+                                
 							</tr>
-                            <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)); ?>		
+                            <?php } while ($row_Recordset1 = mysql_fetch_assoc($Recordset1));
+							}
+							else
+							{
+								echo"空的拉 幹";
+							}
+							 ?>		
 						</table>
 						<!--
 						<form method="post" action="#">

@@ -21,10 +21,11 @@ if (isset($_POST['Account'])) {
   $MM_redirecttoReferrer = false;
   mysql_select_db($database_book_model, $book_model);
   
-  $LoginRS__query=sprintf("SELECT Account, Password FROM `user` WHERE Account = '%s' AND Password='%s'",
+  $LoginRS__query=sprintf("SELECT * FROM `user` WHERE Account = '%s' AND Password='%s'",
    $loginUsername, $password); 
    
   $LoginRS = mysql_query($LoginRS__query, $book_model) or die(mysql_error());
+  $row_Recordset1 = mysql_fetch_assoc($LoginRS);
   $loginFoundUser = mysql_num_rows($LoginRS);
   if ($loginFoundUser) {
      $loginStrGroup = "";
@@ -38,6 +39,10 @@ if (isset($_POST['Account'])) {
       $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
     }
 	$_SESSION["error"] = 0;
+	$_SESSION["user_id"] = $row_Recordset1["Id"];
+	if($row_Recordset1["type"] == 0){
+		header("Location:administrator-home.php ");
+	}
     header("Location: " . $MM_redirectLoginSuccess );
   }
   else {
@@ -70,7 +75,7 @@ if (isset($_POST['Account'])) {
 				<img src="images/Logo.jpg" alt="NTUT Online Book Store Logo">
 				<nav id="nav">
 					<ul class="header-ul" style="margin-top: 10px">
-						<li><a href="home.php">HOME</a></li>
+						<li><a href="homeBeforeSign.php">HOME</a></li>
 						<li>
 							<a href="#" class="icon solid fa-angle-down">PERSONAL INFO</a>
 							<ul>
@@ -80,7 +85,7 @@ if (isset($_POST['Account'])) {
 										<li><a href="#">上下架書籍</a></li>
 									</ul>
 								<li><a href="cart.php">購物車</a></li>
-								<li><a href="#">個人資料</a></li>
+								<li><a href="userinfo.php">個人資料</a></li>
 							</ul>
 						</li>
 						<li><a href="login.php" class="button">LOGIN</a></li> <!-- 跳message 按下後跳轉頁面 -->
@@ -98,16 +103,17 @@ if (isset($_POST['Account'])) {
 						<form id="form1" name="form1" method="POST" action="<?php echo $loginFormAction; ?>">
 							<div class="row gtr-50 gtr-uniform">
 								<div class="col-12">
-									<input type="text" name="Account" id="name" value="" placeholder="Account" />
+									<input type="text" name="Account" id="name" value="" placeholder="Account" required = "required" />
 						        <br>
 								<div class="col-12">
-									<input type="text" name="Password" id="subject" value="" placeholder="Password" />
+									<input type="text" name="Password" id="subject" value="" placeholder="Password" required = "required"  />
 								</div>
                                 <?php if($_SESSION["error"] == 1){ ?>
                                 <br>
 								<div class="col-12">
 									帳號或密碼輸入錯誤
 								</div>
+								
                                 <?php } ?>
 							</div>
 								<ul class="actions special">

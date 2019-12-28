@@ -26,13 +26,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form")) {
   }
   header(sprintf("Location: %s", $insertGoTo));
 }
-if(!isset($_SESSION["user_id"])){
-	mysql_select_db($database_book_model, $book_model);
-	$query_Recordset1 = sprintf("SELECT * FROM `user` WHERE Account = '%s'",$_SESSION["MM_Username"]);
-	$Recordset1 = mysql_query($query_Recordset1, $book_model) or die(mysql_error());
-	$row_Recordset1 = mysql_fetch_assoc($Recordset1);
-	$totalRows_Recordset1 = mysql_num_rows($Recordset1);
-	$_SESSION["user_id"] = $row_Recordset1["Id"];
+if(!isset($_SESSION["arrayCaategory"])){
+	$_SESSION["arrayCaategory"] = array("哲學類","宗教類","科學類","應用科學類","社會科學類","史地類","世界史地類","語言文學類","藝術類");
 }
 ?>
 <!DOCTYPE HTML>
@@ -65,11 +60,11 @@ if(!isset($_SESSION["user_id"])){
 							<ul>
 								<li><a href="shelves.php">上下架</a></li>
 									<ul>
-										<li><a href="write-book.php">編輯書籍資訊</a></li>
-										<li><a href="#">上下架書籍</a></li>
+										<li><a href="shelves.php">編輯書籍資訊</a></li>
+										<li><a href="#shelves">上下架書籍</a></li>
 									</ul>
 								<li><a href="cart.php">購物車</a></li>
-								<li><a href="#">個人資料</a></li>
+								<li><a href="userinfo.php">個人資料</a></li>
 							</ul>
 						</li>
 						<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->
@@ -140,8 +135,14 @@ if(!isset($_SESSION["user_id"])){
 										<div class="col-8">
 											<label for="Category"></label>
 											<select name="Category" id="Category">
-                                                <option value ="0">童話故事</option>
-                                                <option value ="1">恐怖小說</option>
+                                                <?php
+												for($i = 0 ; $i< count($_SESSION["arrayCaategory"]);$i++){
+
+													
+														echo "<option value='" . $i . "'>" .$_SESSION["arrayCaategory"][$i] ."</option>";
+													
+												}
+												?>
 										  </select>
 										</div>
 

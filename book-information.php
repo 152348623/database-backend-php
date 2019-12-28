@@ -1,3 +1,15 @@
+<?php require_once('Connections/book_model.php'); ?>
+<?php
+mysql_select_db($database_book_model, $book_model);
+$select = sprintf("SELECT * from book WHERE Book_id='%s'",$_POST["Book_id"]);
+printf($select);
+$sql = mysql_query($select);
+$row_select = mysql_fetch_assoc($sql);
+
+if(!isset($_SESSION["arrayCaategory"])){
+	$_SESSION["arrayCaategory"] = array("哲學類","宗教類","科學類","應用科學類","社會科學類","史地類","世界史地類","語言文學類","藝術類");
+}
+?>
 <!DOCTYPE HTML>
 <!--
 	Alpha by HTML5 UP
@@ -15,6 +27,14 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 		
 	</head>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+	var id = <?php echo $_POST["Book_id"]; ?>;
+    function insert_cart(){
+		$.post("insert_cart.php", { Book_id:a } );
+		document.location("cart.php");
+	}
+	</script>
 	<body class="is-preload">
 		<div id="page-wrapper">
 
@@ -33,7 +53,7 @@
 										<li><a href="#">上下架書籍</a></li>
 									</ul>
 								<li><a href="cart.php">購物車</a></li>
-								<li><a href="#">個人資料</a></li>
+								<li><a href="userinfo.php">個人資料</a></li>
 							</ul>
 						</li>
 						<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->
@@ -63,7 +83,7 @@
 										</div>
 										<div class="col-8">
 											<p>
-												123456789
+												<?php echo $row_select["ISBN"] ?>
 											</p >
 										</div>
 
@@ -75,7 +95,7 @@
 										</div>
 										<div class="col-8">
 											<p>
-												123456789
+												<?php echo $row_select["Name"] ?>
 											</p>
 										</div>
 
@@ -87,7 +107,7 @@
 										</div>
 										<div class="col-8">
 											<p>
-												123456789
+												<?php echo $row_select["Author_name"] ?>
 											</p>
 										</div>
 
@@ -99,7 +119,7 @@
 										</div>
 										<div class="col-8">
 											<p>
-												123456789
+												<?php echo $row_select["Publisher"] ?>
 											</p>
 										</div>
 
@@ -111,7 +131,7 @@
 										</div>
 										<div class="col-8">
 											<p>
-												123456789
+												<?php echo $_SESSION["arrayCaategory"][$row_select["Category"]]; ?>
 											</p>
 										</div>
 
@@ -123,7 +143,7 @@
 										</div>
 										<div class="col-8">
 											<p>
-												123456789
+												<?php echo $row_select["Cost"] ?>
 											</p>
 										</div>
 
@@ -135,7 +155,7 @@
 										</div>
 										<div class="col-8">
 											<p>
-												123456789
+												<?php echo $row_select["Description"] ?>
 											</p>
 										</div>
 
@@ -149,7 +169,7 @@
 								<div class="col-6"> </div>
 								<div class="col-6">
 									<ul class="actions special">
-										<li><input type="submit" value="加入購物車" /></li>
+										<li><input type="button" onclick="insert_cart()" value="加入購物車" /></li>
 									</ul>
 								</div>
 							</div>

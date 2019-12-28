@@ -1,29 +1,28 @@
 <?php require_once('Connections/book_model.php'); ?>
 <?php
+
 $editFormAction = $_SERVER['PHP_SELF'];
 if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
-if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-  $insertSQL = sprintf("INSERT INTO `user` (Password, Account, Name, `E-mail`, Phone, Usertype) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form")) {
+  $updateSQL = sprintf("UPDATE `user` SET Password='%s', Account='%s', Name='%s', `E-mail`='%s', Phone='%s' WHERE Id='%s'",
                        $_POST['Password'],
                        $_POST['Account'],
                        $_POST['Name'],
                        $_POST['E-mail'],
                        $_POST['Phone'],
-                       '1');
+                       $_SESSION['user_id']);
 
   mysql_select_db($database_book_model, $book_model);
-  $Result1 = mysql_query($insertSQL, $book_model) or die(mysql_error());
-
-  $insertGoTo = "login.php";
-  if (isset($_SERVER['QUERY_STRING'])) {
-    $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
-    $insertGoTo .= $_SERVER['QUERY_STRING'];
-  }
-  header(sprintf("Location: %s", $insertGoTo));
+  $Result1 = mysql_query($updateSQL, $book_model) or die(mysql_error());
 }
+
+mysql_select_db($database_book_model, $book_model);
+$query_Recordset1 = sprintf("SELECT * FROM user WHERE id = '%s'",$_SESSION["user_id"]);
+$Recordset1 = mysql_query($query_Recordset1, $book_model) or die(mysql_error());
+$row_Recordset1 = mysql_fetch_assoc($Recordset1);
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -33,7 +32,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 -->
 <html>
 	<head>
-		<title>北科訂書系統-註冊</title>
+		<title>北科訂書系統-個人資訊</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/register.css" />
@@ -47,7 +46,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 				<img src="images/Logo.jpg" alt="NTUT Online Book Store Logo">
 				<nav id="nav">
 					<ul class="header-ul" style="margin-top: 10px">
-						<li><a href="homeBeforeSign.php">HOME</a></li>
+						<li><a href="home.php">HOME</a></li>
 						<li>
 							<a href="#" class="icon solid fa-angle-down">PERSONAL INFO</a>
 							<ul>
@@ -60,41 +59,39 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 								<li><a href="userinfo.php">個人資料</a></li>
 							</ul>
 						</li>
-						<li><a href="login.php" class="button">LOGIN</a></li> <!-- 跳message 按下後跳轉頁面 -->
+						<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->
 					</ul>
 				</nav>
 			</header>
 
 			<!-- Main -->
-				<section id="main" class="container">
-					<header>
-						<h2>註冊</h2>
-						<p>立即加入，成為愛書的文青</p>
-					</header>
+				<section id="main" class="container medium">
+					
 					<div class="box">
-						<form id="form1" name="form1" method="POST" action="<?php echo $editFormAction; ?>">
+					    <div class ="imfor" style = "text-align: center;"><h2>個人資訊</h2>
+						<form name="form" method="POST" action="<?php echo $editFormAction; ?>">
 							<div class="row gtr-50 gtr-uniform">
 										<div class="col-3">
 
 										</div>
-										<div class="col-2 regiser-div" style="align-self:center">
+										<div class="col-1" style="align-self:center">
 											<p>帳號</p> 
 										</div>
-										<div class="col-4">
-											<input type="text" name="Account" id="Account" value="" required = "required" />
+										<div class="col-5">
+											<input type="text" name="Account" id="Account" value="<?php echo $row_Recordset1["Account"] ?>" />
 										</div>
                                         <div class="col-3">
 
 										</div>
-								<br>
+								    <br>
 								<div class="col-3">
 
 								</div>
-								<div class="col-2 regiser-div" style="align-self:center">
+								<div class="col-1" style="align-self:center">
 									<p>密碼</p> 
 								</div>
-								<div class="col-4">
-									<input type="password" name="Password" id="Password" value="" required = "required" />
+								<div class="col-5">
+									<input type="password" name="Password" id="Password" value="<?php echo $row_Recordset1["Password"] ?>" />
 								</div>
 								<div class="col-3">
 
@@ -103,11 +100,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
                                 <div class="col-3">
 
 								</div>
-								<div class="col-2 regiser-div" style="align-self:center">
+								<div class="col-1" style="align-self:center">
 									<p>名字</p> 
 								</div>
-								<div class="col-4">
-									<input type="text" name="Name" id="Name" value="" required = "required" />
+								<div class="col-5">
+									<input type="text" name="Name" id="Name" value="<?php echo $row_Recordset1["Name"] ?>" />
 								</div>
 								<div class="col-3">
 
@@ -116,11 +113,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 								<div class="col-3">
 
 								</div>
-								<div class="col-2 regiser-div" style="align-self:center" >
+								<div class="col-1" style="align-self:center" >
 									<p>電子郵件</p> 
 								</div>
-								<div class="col-4">
-									<input type="text" name="E-mail" id="E-mail" value="" required = "required" />
+								<div class="col-5">
+									<input type="text" name="E-mail" id="E-mail" value="<?php echo $row_Recordset1["E-mail"] ?>" />
 								</div>
 								<div class="col-3">
 
@@ -129,29 +126,29 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 								<div class="col-3">
 
 								</div>
-								<div class="col-2 regiser-div" style="align-self:center">
+								<div class="col-1" style="align-self:center">
 									<p>電話號碼</p> 
 								</div>
-								<div class="col-4">
-									<input type="text" name="Phone" id="Phone" value="" required = "required" />
+								<div class="col-5">
+									<input type="text" name="Phone" id="Phone" value="<?php echo $row_Recordset1["Phone"] ?>" />
 								</div>
 								<div class="col-3">
 
 								</div>
 								<br>
-								<div class="col-3">
+								<div class="col-4">
 
 								</div>
 								<div class="col-5">
 									<ul class="actions special">
-										<li><input type="submit" name="button" id="button" value="送出" /></li>
+										<li><input type="submit" value="修改完成" /></li>
 									</ul>
 								</div>
-								<div class="col-4">
+								<div class="col-3">
 
 								</div>
 							</div>
-							<input type="hidden" name="MM_insert" value="form1">
+							<input type="hidden" name="MM_update" value="form">
 								
 						</form>
 					</div>
@@ -175,6 +172,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 
 				</section>
 			</footer>
+
 
 		</div>
 

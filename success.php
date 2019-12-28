@@ -39,7 +39,7 @@ print_r($row_Recordset1);
 										<li><a href="#">上下架書籍</a></li>
 									</ul>
 								<li><a href="cart.php">購物車</a></li>
-								<li><a href="#">個人資料</a></li>
+								<li><a href="userinfo.php">個人資料</a></li>
 							</ul>
 						</li>
 						<li><a href="homeBeforeSign.php" class="button">LOGOUT</a></li> <!-- 跳message 按下後跳轉頁面 -->
@@ -67,18 +67,18 @@ print_r($row_Recordset1);
 								<td><?php echo $row_Recordset1['Order_number']; ?></td>
                                 <td><?php
 									 if($row_Recordset1['State'] == 0){
-										 echo "我忘記狀態0是啥了";
+										 echo "運送中";
 									 }
 									 else if($row_Recordset1['State'] == 1){
-										 echo "我忘記狀態1是啥了";
+										 echo "抵達";
 									 }
 									 ?></td>
                                  <td><?php 
 									if($row_Recordset1['Delivery'] == 0){
-										 echo "我忘記交貨0是啥了";
+										 echo "貨到付款";
 									 }
 									 else if($row_Recordset1['Delivery'] == 1){
-										 echo "我忘記交貨1是啥了";
+										 echo "貨到付款";
                                  }?></td>
 								<td><?php echo $row_Recordset1['Name']; ?></td>
 								<td><?php echo $row_Recordset1['Cost']; ?></td>
